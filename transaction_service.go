@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/widnyana/idrx-go/models"
+	"github.com/igun997/idrx-go/models"
 )
 
 // TransactionService handles transaction operations including minting, redeeming,

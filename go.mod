@@ -3,7 +3,7 @@
 // Handles dual authentication, multi-chain transactions, and KYC workflows
 // across Polygon, BNB Chain, Base, Solana, Etherlink, Gnosis, World Chain,
 // Kaia, and Lisk networks.
-module github.com/widnyana/idrx-go
+module github.com/igun997/idrx-go
 
 go 1.25.3
 

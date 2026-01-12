@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/widnyana/idrx-go/models"
+	"github.com/igun997/idrx-go/models"
 )
 
 func TestTransactionService_MintRequest(t *testing.T) {

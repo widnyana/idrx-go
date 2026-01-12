@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/widnyana/idrx-go/blockchain"
+	"github.com/igun997/idrx-go/blockchain"
 )
 
 // Client is the main entry point for the IDRX SDK using the facade pattern.

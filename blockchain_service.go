@@ -8,7 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/widnyana/idrx-go/blockchain"
+	"github.com/igun997/idrx-go/blockchain"
 )
 
 // BlockchainService provides blockchain-specific operations for IDRX

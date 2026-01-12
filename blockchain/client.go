@@ -15,7 +15,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	"github.com/widnyana/idrx-go/contracts"
+	"github.com/igun997/idrx-go/contracts"
 )
 
 // Client represents a multi-chain blockchain client for IDRX operations

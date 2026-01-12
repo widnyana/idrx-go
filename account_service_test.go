@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/widnyana/idrx-go/models"
+	"github.com/igun997/idrx-go/models"
 )
 
 func TestAccountService_GetMembers(t *testing.T) {

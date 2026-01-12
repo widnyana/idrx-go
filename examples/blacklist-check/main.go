@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	idrx "github.com/widnyana/idrx-go"
-	"github.com/widnyana/idrx-go/blockchain"
+	idrx "github.com/igun997/idrx-go"
+	"github.com/igun997/idrx-go/blockchain"
 )
 
 func main() {

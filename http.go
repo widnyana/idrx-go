@@ -16,7 +16,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/widnyana/idrx-go/models"
+	"github.com/igun997/idrx-go/models"
 )
 
 // doRequest is the shared HTTP request method using the template method pattern.

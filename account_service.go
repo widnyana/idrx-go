@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/widnyana/idrx-go/models"
+	"github.com/igun997/idrx-go/models"
 )
 
 // AccountService handles account management operations including user onboarding,

@@ -4,13 +4,22 @@ import (
 	"time"
 )
 
+// CustomerDetail represents customer information for mint requests.
+type CustomerDetail struct {
+	FirstName string `json:"firstName,omitempty"` // max 50 characters
+	LastName  string `json:"lastName,omitempty"`  // max 50 characters
+	Email     string `json:"email,omitempty"`     // max 50 characters
+}
+
 // MintRequest represents the request to mint IDRX or other stablecoins.
 type MintRequest struct {
-	ToBeMinted               string      `json:"toBeMinted" validate:"required"`
-	DestinationWalletAddress string      `json:"destinationWalletAddress" validate:"required"`
-	NetworkChainID           string      `json:"networkChainId" validate:"required"`
-	ExpiryPeriod             int         `json:"expiryPeriod" validate:"required"`
-	RequestType              RequestType `json:"requestType,omitempty"`
+	ToBeMinted               string          `json:"toBeMinted" validate:"required"`
+	DestinationWalletAddress string          `json:"destinationWalletAddress" validate:"required"`
+	NetworkChainID           string          `json:"networkChainId" validate:"required"`
+	ExpiryPeriod             int             `json:"expiryPeriod" validate:"required"`
+	RequestType              RequestType     `json:"requestType,omitempty"`
+	ProductDetails           string          `json:"productDetails,omitempty"` // Custom payment note, max 255 characters
+	CustomerDetail           *CustomerDetail `json:"customerDetail,omitempty"` // Customer information
 }
 
 // MintResponse represents the response from a mint request.
