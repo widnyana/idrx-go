@@ -198,6 +198,25 @@ func (s *TransactionService) validateMintRequest(req *models.MintRequest) error 
 	if req.ExpiryPeriod <= 0 {
 		return fmt.Errorf("expiryPeriod must be greater than 0")
 	}
+
+	// Validate optional productDetails length
+	if len(req.ProductDetails) > 255 {
+		return fmt.Errorf("productDetails must not exceed 255 characters")
+	}
+
+	// Validate optional customerDetail fields
+	if req.CustomerDetail != nil {
+		if len(req.CustomerDetail.FirstName) > 50 {
+			return fmt.Errorf("customerDetail.firstName must not exceed 50 characters")
+		}
+		if len(req.CustomerDetail.LastName) > 50 {
+			return fmt.Errorf("customerDetail.lastName must not exceed 50 characters")
+		}
+		if len(req.CustomerDetail.Email) > 50 {
+			return fmt.Errorf("customerDetail.email must not exceed 50 characters")
+		}
+	}
+
 	return nil
 }
 

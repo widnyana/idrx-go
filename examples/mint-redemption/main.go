@@ -53,6 +53,13 @@ func main() {
 		DestinationWalletAddress: "0x61Ba72c10983Def54AA7F93a334837BAA5d93396", // change this to your destination wallet address
 		NetworkChainID:           string(models.ChainPolygon),                  // Polygon
 		ExpiryPeriod:             3600,                                         // 1 hour
+		// Optional fields for customizing payment page
+		ProductDetails: "Custom IDRX Purchase", // Override default "Minting IDRX" note
+		CustomerDetail: &models.CustomerDetail{
+			FirstName: "John",
+			LastName:  "Doe",
+			Email:     "john.doe@example.com",
+		},
 	}
 
 	mintResp, err := client.Transaction.MintRequest(ctx, mintReq)
