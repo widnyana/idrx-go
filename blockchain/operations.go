@@ -46,7 +46,7 @@ func (c *Client) BalanceOf(_ context.Context, chainID uint64, address common.Add
 		return nil, fmt.Errorf("failed to get balance: %w", err)
 	}
 
-	return FromWei(balance, 18), nil // IDRX has 18 decimals
+	return FromWei(balance, int32(GetDecimals(chainID))), nil
 }
 
 // TotalSupply returns the total supply of IDRX on the specified chain
@@ -61,7 +61,7 @@ func (c *Client) TotalSupply(_ context.Context, chainID uint64) (*TokenAmount, e
 		return nil, fmt.Errorf("failed to get total supply: %w", err)
 	}
 
-	return FromWei(supply, 18), nil
+	return FromWei(supply, int32(GetDecimals(chainID))), nil
 }
 
 // Transfer sends IDRX tokens from the client's address to another address

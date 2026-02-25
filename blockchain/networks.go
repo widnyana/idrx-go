@@ -17,6 +17,7 @@ type NetworkConfig struct {
 	GasLimit        uint64
 	MaxGasPrice     uint64 // in wei
 	IsTestnet       bool
+	Decimals        uint8 // Token decimals for this deployment
 }
 
 // Network identifier constants for better type safety
@@ -55,6 +56,7 @@ var SupportedNetworks = map[string]*NetworkConfig{
 		GasLimit:        3000000,
 		MaxGasPrice:     10000000000, // 10 Gwei
 		IsTestnet:       false,
+		Decimals:        2,
 	},
 	// Polygon Mainnet
 	PolygonMainnet: {
@@ -66,6 +68,7 @@ var SupportedNetworks = map[string]*NetworkConfig{
 		GasLimit:        3000000,
 		MaxGasPrice:     50000000000, // 50 Gwei
 		IsTestnet:       false,
+		Decimals:        0,
 	},
 	// BNB Smart Chain
 	BSCMainnet: {
@@ -77,6 +80,7 @@ var SupportedNetworks = map[string]*NetworkConfig{
 		GasLimit:        3000000,
 		MaxGasPrice:     5000000000, // 5 Gwei (BSC gas price: 0.05 Gwei as of 2025)
 		IsTestnet:       false,
+		Decimals:        0,
 	},
 	// Lisk Mainnet
 	LiskMainnet: {
@@ -88,6 +92,7 @@ var SupportedNetworks = map[string]*NetworkConfig{
 		GasLimit:        3000000,
 		MaxGasPrice:     1000000000, // 1 Gwei
 		IsTestnet:       false,
+		Decimals:        2,
 	},
 	KaiaMainnet: {
 		ChainID:         KaiaChainID,
@@ -98,6 +103,7 @@ var SupportedNetworks = map[string]*NetworkConfig{
 		GasLimit:        3000000,
 		MaxGasPrice:     1000000000, // 1 Gwei
 		IsTestnet:       false,
+		Decimals:        2,
 	},
 	WorldChainMainnet: {
 		ChainID:         WorldChainChainID,
@@ -108,6 +114,7 @@ var SupportedNetworks = map[string]*NetworkConfig{
 		GasLimit:        3000000,
 		MaxGasPrice:     1000000000, // 1 Gwei
 		IsTestnet:       false,
+		Decimals:        2,
 	},
 	EtherlinkMainnet: {
 		ChainID:         EtherlinkChainID,
@@ -118,6 +125,7 @@ var SupportedNetworks = map[string]*NetworkConfig{
 		GasLimit:        30000000,   // 30M (Dionysus upgrade allows up to 30M gas units)
 		MaxGasPrice:     1000000000, // 1 Gwei
 		IsTestnet:       false,
+		Decimals:        2,
 	},
 	GnosisMainnet: {
 		ChainID:         GnosisChainID,
@@ -128,6 +136,7 @@ var SupportedNetworks = map[string]*NetworkConfig{
 		GasLimit:        3000000,
 		MaxGasPrice:     500000000, // 0.5 Gwei (current gas price ~0.2 Gwei)
 		IsTestnet:       false,
+		Decimals:        2,
 	},
 }
 
@@ -200,4 +209,14 @@ func GetNetworkNameByChainID(chainID uint64) (string, bool) {
 		}
 	}
 	return "", false
+}
+
+// GetDecimals returns the token decimals for a given chain ID.
+// Returns 2 as default if chain not found (majority of chains use 2 decimals).
+func GetDecimals(chainID uint64) uint8 {
+	config, _, exists := GetNetworkConfigByChainID(chainID)
+	if !exists {
+		return 2 // fallback to majority decimal places
+	}
+	return config.Decimals
 }
