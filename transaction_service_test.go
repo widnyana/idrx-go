@@ -359,6 +359,56 @@ func TestTransactionService_MintRequestValidation(t *testing.T) {
 			},
 			wantErr: "expiryPeriod must be greater than 0",
 		},
+		{
+			name: "productDetails exceeds 255 characters",
+			request: &models.MintRequest{
+				ToBeMinted:               "1000",
+				DestinationWalletAddress: "0x123",
+				NetworkChainID:           "137",
+				ExpiryPeriod:             3600,
+				ProductDetails:           strings.Repeat("a", 256),
+			},
+			wantErr: "productDetails must not exceed 255 characters",
+		},
+		{
+			name: "customerDetail firstName exceeds 50 characters",
+			request: &models.MintRequest{
+				ToBeMinted:               "1000",
+				DestinationWalletAddress: "0x123",
+				NetworkChainID:           "137",
+				ExpiryPeriod:             3600,
+				CustomerDetail: &models.CustomerDetail{
+					FirstName: strings.Repeat("a", 51),
+				},
+			},
+			wantErr: "customerDetail.firstName must not exceed 50 characters",
+		},
+		{
+			name: "customerDetail lastName exceeds 50 characters",
+			request: &models.MintRequest{
+				ToBeMinted:               "1000",
+				DestinationWalletAddress: "0x123",
+				NetworkChainID:           "137",
+				ExpiryPeriod:             3600,
+				CustomerDetail: &models.CustomerDetail{
+					LastName: strings.Repeat("b", 51),
+				},
+			},
+			wantErr: "customerDetail.lastName must not exceed 50 characters",
+		},
+		{
+			name: "customerDetail email exceeds 50 characters",
+			request: &models.MintRequest{
+				ToBeMinted:               "1000",
+				DestinationWalletAddress: "0x123",
+				NetworkChainID:           "137",
+				ExpiryPeriod:             3600,
+				CustomerDetail: &models.CustomerDetail{
+					Email: strings.Repeat("c", 51) + "@example.com",
+				},
+			},
+			wantErr: "customerDetail.email must not exceed 50 characters",
+		},
 	}
 
 	for _, tt := range tests {
