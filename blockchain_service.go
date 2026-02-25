@@ -55,7 +55,7 @@ func (bs *BlockchainService) GetTokenInfoByNetwork(ctx context.Context, networkN
 // Transfer transfers IDRX tokens between addresses
 func (bs *BlockchainService) Transfer(ctx context.Context, chainID uint64, toAddress string, amount string) (*TransferResult, error) {
 	to := common.HexToAddress(toAddress)
-	tokenAmount, err := blockchain.ParseTokenAmount(amount, 18)
+	tokenAmount, err := blockchain.ParseTokenAmount(amount, int32(blockchain.GetDecimals(chainID)))
 	if err != nil {
 		return nil, fmt.Errorf("invalid amount: %w", err)
 	}
@@ -90,7 +90,7 @@ func (bs *BlockchainService) BurnForRedemption(
 	amount string,
 	accountNumber string,
 ) (*BurnResult, error) {
-	tokenAmount, err := blockchain.ParseTokenAmount(amount, 18)
+	tokenAmount, err := blockchain.ParseTokenAmount(amount, int32(blockchain.GetDecimals(chainID)))
 	if err != nil {
 		return nil, fmt.Errorf("invalid amount: %w", err)
 	}
@@ -128,7 +128,7 @@ func (bs *BlockchainService) InitiateBridge(ctx context.Context, request *Bridge
 		return nil, fmt.Errorf("destination chain %d not supported", request.ToChainID)
 	}
 
-	tokenAmount, err := blockchain.ParseTokenAmount(request.Amount, 18)
+	tokenAmount, err := blockchain.ParseTokenAmount(request.Amount, int32(blockchain.GetDecimals(request.FromChainID)))
 	if err != nil {
 		return nil, fmt.Errorf("invalid amount: %w", err)
 	}

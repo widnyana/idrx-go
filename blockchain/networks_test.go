@@ -165,3 +165,40 @@ func TestNetworkNameByChainID(t *testing.T) {
 		t.Error("Invalid chain ID should not have a network name")
 	}
 }
+
+func TestGetDecimals(t *testing.T) {
+	testCases := map[uint64]uint8{
+		8453:  2, // Base
+		137:   0, // Polygon
+		56:    0, // BSC
+		1135:  2, // Lisk
+		8217:  2, // Kaia
+		480:   2, // World Chain
+		42793: 2, // Etherlink
+		100:   2, // Gnosis
+	}
+
+	for chainID, expectedDecimals := range testCases {
+		decimals := GetDecimals(chainID)
+		if decimals != expectedDecimals {
+			t.Errorf("Chain ID %d: expected decimals %d, got %d", chainID, expectedDecimals, decimals)
+		}
+	}
+}
+
+func TestGetDecimalsFallback(t *testing.T) {
+	// Unknown chain should return fallback value of 2
+	decimals := GetDecimals(999999)
+	if decimals != 2 {
+		t.Errorf("Unknown chain should return fallback 2, got %d", decimals)
+	}
+}
+
+func TestNetworkConfigHasDecimals(t *testing.T) {
+	for networkName, config := range SupportedNetworks {
+		// All networks should have decimals set to 0 or 2
+		if config.Decimals != 0 && config.Decimals != 2 {
+			t.Errorf("Network %s has unexpected decimals value: %d", networkName, config.Decimals)
+		}
+	}
+}
